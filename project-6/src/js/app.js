@@ -93,7 +93,6 @@ App = {
             }
             console.log('getMetaskID:',res);
             App.metamaskAccountID = res[0];
-
         })
     },
 
@@ -111,7 +110,6 @@ App = {
             App.fetchItemBufferOne();
             App.fetchItemBufferTwo();
             App.fetchEvents();
-
         });
 
         return App.bindEvents();
@@ -287,8 +285,8 @@ App = {
     },
 
     fetchItemBufferOne: function () {
-    ///   event.preventDefault();
-    ///    var processId = parseInt($(event.target).data('id'));
+        event.preventDefault();
+        var processId = parseInt($(event.target).data('id'));
         App.upc = $('#upc').val();
         console.log('upc',App.upc);
 
@@ -334,7 +332,6 @@ App = {
         }).catch(function(err) {
           console.log(err.message);
         });
-        
     }
 };
 
