@@ -160,7 +160,19 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   }
 
   // Define a function 'harvestItem' that allows a farmer to mark an item 'Harvested'
-  function harvestItem(uint _upc, address _originFarmerID, string _originFarmName, string _originFarmInformation, string  _originFarmLatitude, string  _originFarmLongitude, string  _productNotes) public 
+  function harvestItem
+  (
+    uint _upc, 
+    address _originFarmerID, 
+    string _originFarmName, 
+    string _originFarmInformation, 
+    string  _originFarmLatitude, 
+    string  _originFarmLongitude, 
+    string  _productNotes
+  ) 
+  public
+  // Access Control List enforced by calling Smart Contract / DApp
+  onlyFarmer()
   {
     // Add the new item as part of Harvest
     uint _productID = sku + _upc;
@@ -192,8 +204,7 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
     // Update the appropriate fields
     items[_upc].itemState = State.Processed;
     // Emit the appropriate event
-    emit Processed(_upc);
-    
+    emit Processed(_upc); 
   }
 
   // Define a function 'packItem' that allows a farmer to mark an item 'Packed'
@@ -227,6 +238,8 @@ contract SupplyChain is Ownable, FarmerRole, DistributorRole, RetailerRole, Cons
   // Use the above defined modifiers to check if the item is available for sale, if the buyer has paid enough, 
   // and any excess ether sent is refunded back to the buyer
   function buyItem(uint _upc) public payable 
+    // Access Control List enforced by calling Smart Contract / DApp
+    onlyDistributor()
     // Call modifier to check if upc has passed previous supply chain stage
     forSale(_upc)
     // Call modifer to check if buyer has paid enough
